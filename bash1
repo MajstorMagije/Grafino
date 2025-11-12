@@ -1,0 +1,6 @@
+git clone https://github.com/MajstorMagije/Grafino.git
+cd Grafino
+# Copy your files into this directory
+git add .
+git commit -m "Add Grafino website files"
+git push
