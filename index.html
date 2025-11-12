@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Grafino - Vizualni Identitet & Dizajn</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="logo.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* 1. Globalni Reset i Varijable */
+        :root {
+            /* Dark Mode Default */
+            --primary-bg: #101010;
+            --secondary-bg: #1F1F1F;
+            --text-color: #FFFFFF;
+            --secondary-text: #ccc;
+            --border-color: #333;
+            --accent-color: #8200DB; /* Ljubičasta/Purpurna */
+            --padding-desktop: 80px;
+            --padding-mobile: 20px;
+            --font-family: 'Inter', sans-serif;
+            --max-width: 1280px; /* Dodana max širina za centriranje */
+        }
+
+        /* Light Mode Stilovi - PREBACIVANJE KLASA */
+        body.light-mode {
+            --primary-bg: #FFFFFF;
+            --secondary-bg: #F0F0F0;
+            --text-color: #101010;
+            --secondary-text: #555;
+            --border-color: #E0E0E0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--primary-bg);
+            scroll-behavior: smooth;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        /* Centriranje sadržaja za velike ekrane */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--padding-desktop);
+        }
+
+        /* HEADER/NAVIGACIJA */
+        header {
+            background-color: var(--primary-bg);
+            /* Koristimo varijablu, ali ćemo je mijenjati u media query-u */
+            padding: 20px var(--padding-desktop); 
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: var(--max-width); /* Koristimo novu varijablu */
+            margin: 0 auto;
+        }
+        
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex; /* Vidljivo na desktopu */
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin-left: 30px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Novo: Hamburger meni dugme (Skriveno na desktopu) */
+        .hamburger-menu {
+            display: none; 
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5em;
+            cursor: pointer;
+            z-index: 1001; /* Iznad navigacije */
+        }
+
+        /* Dugmad i CTA STILOVI (nepromijenjeno) */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #6a00c8;
+            transform: translateY(-2px);
+        }
+
+        .secondary-button {
+            display: inline-block;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .secondary-button:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+        }
+
+        /* HERO SEKCIJA */
+        #hero {
+            min-height: 80vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            /* Prilagođavamo padding da koristi varijable */
+            padding: 100px var(--padding-desktop) 50px; 
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        #hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            background: linear-gradient(45deg, #8200DB, #C8A2C8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        #hero p {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            color: var(--secondary-text);
+            max-width: 800px; /* Ograničavamo širinu teksta na velikim ekranima */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* USLUGE SEKCIJA */
+        #usluge {
+            padding: 80px 0; /* Ostavljamo 0 horizontalno, koristi se .container */
+            text-align: center;
+        }
+        
+        #usluge h2 {
+            font-size: 2.5em;
+            margin-bottom: 60px;
+        }
+
+        .usluge-grid {
+            display: grid; /* Promjena na GRID za lakšu responzivnost */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Automatski prilagodljiv grid */
+            gap: 30px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--padding-desktop); /* Horizontalni padding prilagođen */
+        }
+        
+        /* ... Stiling kartice usluga je ok (nepromijenjeno) ... */
+        .usluga-kartica {
+            background-color: var(--secondary-bg);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .usluga-kartica:hover {
+            background-color: #2a2a2a; 
+            transform: translateY(-5px);
+        }
+        
+        body.light-mode .usluga-kartica:hover {
+            background-color: #E8E8E8;
+        }
+
+        .usluga-kartica h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .usluga-kartica p {
+            color: var(--secondary-text);
+        }
+        
+        /* PORTFOLIO SEKCIJA */
+        #portfolio {
+            /* Koristimo container klasu da ograničimo širinu */
+            padding: var(--padding-desktop) var(--padding-desktop);
+            text-align: center;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        
+        /* FOOTER */
+        footer {
+            text-align: center; 
+            padding: 30px 20px; 
+            border-top: 1px solid var(--border-color); 
+            font-size: 0.9em;
+            color: var(--secondary-text);
+        }
+
+        /* 8. STILOVI ZA JEZIK I TEMU PREKLOPNIKE (nepromijenjeno) */
+        /* ... */
+
+        /* 9. RESPONSIVNOST (Prilagodbe za mobilne uređaje) */
+        
+        /* Manji laptopi i veći tableti (do 1024px) */
+        @media (max-width: 1024px) {
+            :root {
+                --padding-desktop: 40px; /* Smanjenje paddinga */
+            }
+            #hero h1 {
+                font-size: 3.5em; /* Smanjenje veličine naslova */
+            }
+            .usluge-grid {
+                /* Smanjenje horizontalnog paddinga za Grid usluga */
+                padding: 0 var(--padding-desktop); 
+            }
+        }
+
+
+        /* Mobiteli (do 768px - ključna točka prekida) */
+        @media (max-width: 768px) {
+            :root {
+                --padding-desktop: var(--padding-mobile); /* Koristimo mobilni padding svuda */
+            }
+            
+            /* Prilagodba HEARER-a za mobilnu navigaciju */
+            header {
+                padding: 15px var(--padding-mobile); /* Manji padding u zaglavlju */
+            }
+            
+            nav {
+                flex-wrap: nowrap; /* Sprečavamo prelamanje na *nav* elementu */
+            }
+
+            .hamburger-menu {
+                display: block; /* Prikazujemo hamburger meni */
+                margin-left: 10px; /* Odmak od kontrola */
+            }
+
+            #mainNav {
+                display: none; /* Sakrivamo standardnu navigaciju */
+                flex-direction: column;
+                position: absolute;
+                top: 61px; /* Ispod headera */
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-bg);
+                border-top: 1px solid var(--border-color);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                padding-bottom: 20px;
+            }
+            
+            #mainNav.open {
+                display: flex; /* Prikazujemo navigaciju kada je 'open' */
+            }
+
+            nav ul li {
+                text-align: center;
+                margin: 10px 0;
+            }
+
+            nav ul li a {
+                margin-left: 0;
+                display: block;
+                padding: 10px 0;
+                font-size: 1.1em;
+            }
+
+            .nav-controls {
+                gap: 10px; /* Manji razmak između kontrola */
+            }
+            
+            /* HERO SEKCIJA */
+            #hero {
+                padding: 80px var(--padding-mobile) 50px;
+                min-height: 60vh;
+            }
+
+            #hero h1 {
+                font-size: 2.5em; /* Još manje na mobitelu */
+            }
+
+            #hero p {
+                font-size: 1.1em;
+            }
+            
+            /* USLUGE SEKCIJA */
+            .usluge-grid {
+                /* U ovom slučaju grid s auto-fit je već dobar, samo mijenjamo padding */
+                padding: 0 var(--padding-mobile);
+            }
+            
+            /* PORTFOLIO SEKCIJA */
+            #portfolio {
+                padding: var(--padding-mobile) var(--padding-mobile);
+            }
+
+            /* Dugmad */
+            .cta-button {
+                padding: 12px 25px; /* Manje dugme */
+            }
+        }
+        /* ... (Ostatak vašeg CSS koda iznad je isti) ... */
+
+        /* RESPONSIVNOST (Prilagodba za kontrole) - Mijenjamo redoslijed */
+        @media (max-width: 768px) {
+            /* ... (Ostala responsivnost je ista) ... */
+            
+            /* Prilagodba HEARER-a za mobilnu navigaciju */
+            header {
+                padding: 15px var(--padding-mobile);
+            }
+            
+            nav {
+                flex-wrap: nowrap;
+            }
+
+            .nav-controls {
+                gap: 10px; /* Manji razmak između kontrola */
+                order: 3; /* Dodajemo order da bismo osigurali da su kontrole na kraju */
+            }
+            
+            .hamburger-menu {
+                display: block; 
+                order: 4; /* Pomjeramo hamburger skroz desno */
+            }
+            
+            .logo {
+                order: 1; /* Logo na lijevo */
+            }
+
+            #mainNav {
+                /* ... (stil za navigaciju na mobitelu) ... */
+                display: none; 
+                /* ... */
+            }
+            /* ... (Ostali stilovi za mobilne uređaje) ... */
+        }
+
+
+        /* 8. STILOVI ZA JEZIK I TEMU PREKLOPNIKE */
+        
+        /* Tematski Preklopnik (Switch) */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            /* Novo: Dodajemo vizualni obrub oko cijelog switcha da liči na dugme */
+            border: 2px solid var(--text-color); 
+            border-radius: 34px; /* Zaobljavamo ivice */
+            padding: 2px; /* Daje malo prostora unutar obruba */
+            transition: all 0.3s;
+        }
+        
+        /* Hover efekat da se uskladi sa lang-button */
+        .theme-switch-wrapper:hover {
+            border-color: var(--accent-color);
+        }
+
+        .theme-switch {
+            display: inline-block;
+            height: 20px; /* Smanjeno malo za eleganciju */
+            position: relative;
+            width: 40px; /* Smanjeno malo za eleganciju */
+        }
+
+        .theme-switch input {
+            display: none;
+        }
+
+        .slider {
+            background-color: var(--secondary-text); /* Koristimo sekundarnu boju za pozadinu */
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            right: 0;
+            top: 0;
+            position: absolute;
+            transition: .4s;
+        }
+
+        .slider:before {
+            background-color: white;
+            bottom: 2px; /* Prilagođeno novoj visini */
+            content: "";
+            height: 16px; 
+            left: 2px; /* Prilagođeno novoj visini */
+            position: absolute;
+            transition: .4s;
+            width: 16px; 
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-color); /* Ljubičasta kada je uključeno */
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px); /* Prilagođena translacija za novu širinu */
+        }
+
+        /* OBAVEZAN STIL PO VAŠEM ZAHTJEVU */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        /* Dugme za Jezik - STIL PO VAŠEM ZAHTJEVU */
+        .lang-button {
+            background: none;
+            border: 2px solid var(--text-color);
+            color: var(--text-color);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        .lang-button:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#" class="logo">GRAFINO</a>
+            
+            <ul id="mainNav">
+                <li><a href="#usluge" data-key="navUsluge">Usluge</a></li>
+                <li><a href="#portfolio" data-key="navPortfolio">Portfolio</a></li>
+                <li><a href="#kontakt" data-key="navKontakt">Kontakt</a></li>
+            </ul>
+
+            <div class="nav-controls">
+                
+                <button class="lang-button" id="langSwitch">ENG</button>
+
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="checkbox">
+                        <input type="checkbox" id="checkbox" />
+                        <div class="slider round"></div>
+                    </label>
+                </div>
+                
+                <button class="hamburger-menu" id="hamburger">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+        <section id="hero">
+            <div class="hero-content">
+                <h1 id="heroTitle">Vizualni Identitet Koje Ostvaruje Rezultate</h1>
+                <p id="heroText">Mi kreiramo profesionalni dizajn koji vašem brendu daje prepoznatljivost i ostavlja trajan utisak.</p>
+                <a href="#kontakt" class="cta-button" id="heroCTA" data-key="heroCTA">Započnite Projekat</a>
+            </div>
+        </section>
+        
+        <section id="usluge">
+            <h2 id="uslugeTitle">Naše Ključne Usluge</h2>
+            <div class="usluge-grid"> 
+                
+                <div class="usluga-kartica">
+                    <h3 data-key="usluga1Title">Dizajn Logotipa</h3>
+                    <p data-key="usluga1Text">Kreiranje jedinstvenog i funkcionalnog logotipa koji savršeno odražava vrijednosti vašeg brenda i ističe se na tržištu.</p>
+                </div>
+
+                <div class="usluga-kartica">
+                    <h3 data-key="usluga2Title">Kompletan Brending</h3>
+                    <p data-key="usluga2Text">Izrada cjelokupnog vizualnog identiteta (boje, tipografija, standardi) za profesionalnu i dosljednu komunikaciju.</p>
+                </div>
+
+                <div class="usluga-kartica">
+                    <h3 data-key="usluga3Title">Dizajn za Društvene Mreže</h3>
+                    <p data-key="usluga3Text">Optimizovani vizuali za Instagram, Facebook i LinkedIn (objave, Story i Reels predlošci) koji angažuju vašu publiku.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="portfolio">
+            <h2 id="portfolioTitle">Naši Najbolji Radovi</h2>
+            <div class="portfolio-grid">
+                </div>
+            <a href="https://www.instagram.com/grafino.ba/" target="_blank" class="secondary-button" id="portfolioCTA">Više radova na Instagramu &rarr;</a>
+        </section>
+        
+        <section id="kontakt"> 
+            <div class="container" style="padding: 80px 20px; text-align: center;"> 
+                 <h2 id="kontaktTitle">Započnimo saradnju!</h2>
+                 <p id="kontaktText" style="max-width: 600px; margin: 20px auto 40px; color: var(--secondary-text);">Javite nam se s detaljima vašeg projekta ili brendinga. Uskoro ćemo vam poslati ponudu prilagođenu vašim potrebama.</p>
+                 <a href="mailto: grafinodesign.ba@gmail.com" class="cta-button" id="kontaktCTA" data-key="kontaktCTA">Pošalji Upit</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p id="footerText">GRAFINO | &copy; 2025 Sva prava zadržana.</p>
+    </footer>
+    
+    <script>
+        // ... (Dio za prevođenje ostaje nepromijenjen) ...
+        const translations = {
+            bs: {
+                pageTitle: "Grafino - Vizualni Identitet & Dizajn",
+                navUsluge: "Usluge",
+                navPortfolio: "Portfolio",
+                navKontakt: "Kontakt",
+                heroTitle: "Vizualni Identitet Koje Ostvaruje Rezultate",
+                heroText: "Mi kreiramo profesionalni dizajn koji vašem brendu daje prepoznatljivost i ostavlja trajan utisak.",
+                heroCTA: "Započnite Projekat",
+                uslugeTitle: "Naše Ključne Usluge",
+                usluga1Title: "Dizajn Logotipa",
+                usluga1Text: "Kreiranje jedinstvenog i funkcionalnog logotipa koji savršeno odražava vrijednosti vašeg brenda i ističe se na tržištu.",
+                usluga2Title: "Kompletan Brending",
+                usluga2Text: "Izrada cjelokupnog vizualnog identiteta (boje, tipografija, standardi) za profesionalnu i dosljednu komunikaciju.",
+                usluga3Title: "Dizajn za Društvene Mreže",
+                usluga3Text: "Optimizovani vizuali za Instagram, Facebook i LinkedIn (objave, Story i Reels predlošci) koji angažuju vašu publiku.",
+                portfolioTitle: "Naši Najbolji Radovi",
+                portfolioCTA: "Više radova na Instagramu →",
+                kontaktTitle: "Započnimo saradnju!",
+                kontaktText: "Javite nam se s detaljima vašeg projekta ili brendinga. Uskoro ćemo vam poslati ponudu prilagođenu vašim potrebama.",
+                kontaktCTA: "Pošalji Upit",
+                footerText: "GRAFINO | © 2025 Sva prava zadržana.",
+            },
+            en: {
+                pageTitle: "Grafino - Visual Identity & Design",
+                navUsluge: "Services",
+                navPortfolio: "Portfolio",
+                navKontakt: "Contact",
+                heroTitle: "Visual Identity That Delivers Results",
+                heroText: "We create professional design that gives your brand recognition and leaves a lasting impression.",
+                heroCTA: "Start Your Project",
+                uslugeTitle: "Our Key Services",
+                usluga1Title: "Logo Design",
+                usluga1Text: "Creating a unique and functional logo that perfectly reflects your brand's values and stands out in the market.",
+                usluga2Title: "Complete Branding",
+                usluga2Text: "Development of a complete visual identity (colors, typography, standards) for professional and consistent communication.",
+                usluga3Title: "Social Media Design",
+                usluga3Text: "Optimized visuals for Instagram, Facebook, and LinkedIn (posts, Story, and Reels templates) that engage your audience.",
+                portfolioTitle: "Our Best Works",
+                portfolioCTA: "More work on Instagram →",
+                kontaktTitle: "Let's Start Collaborating!",
+                kontaktText: "Contact us with the details of your project or branding. We will soon send you a tailored offer.",
+                kontaktCTA: "Send Inquiry",
+                footerText: "GRAFINO | © 2025 All rights reserved.",
+            }
+        };
+
+        let currentLang = 'bs';
+        const langSwitchButton = document.getElementById('langSwitch');
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const content = translations[lang];
+
+            document.getElementById('pageTitle').textContent = content.pageTitle;
+            document.getElementById('heroTitle').textContent = content.heroTitle;
+            document.getElementById('heroText').textContent = content.heroText;
+            document.getElementById('heroCTA').textContent = content.heroCTA;
+            document.getElementById('uslugeTitle').textContent = content.uslugeTitle;
+            document.getElementById('portfolioTitle').textContent = content.portfolioTitle;
+            document.getElementById('portfolioCTA').textContent = content.portfolioCTA;
+            document.getElementById('kontaktTitle').textContent = content.kontaktTitle;
+            document.getElementById('kontaktText').textContent = content.kontaktText;
+            document.getElementById('kontaktCTA').textContent = content.kontaktCTA;
+            document.getElementById('footerText').textContent = content.footerText;
+
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (content[key]) {
+                    el.textContent = content[key];
+                }
+            });
+
+            langSwitchButton.textContent = lang === 'bs' ? 'ENG' : 'BOS';
+        }
+
+        langSwitchButton.addEventListener('click', () => {
+            const newLang = currentLang === 'bs' ? 'en' : 'bs';
+            setLanguage(newLang);
+        });
+
+        // 2. FUNKCIONALNOST ZA TEMU (Dark/Light Mode) (nepromijenjeno)
+        const toggleSwitch = document.getElementById('checkbox');
+        const body = document.body;
+
+        function checkTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                body.classList.add('light-mode');
+                toggleSwitch.checked = true;
+            }
+        }
+
+        toggleSwitch.addEventListener('change', () => {
+            if (toggleSwitch.checked) {
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-mode');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // 3. NOVO: FUNKCIONALNOST ZA HAMBURGER MENI
+        const hamburger = document.getElementById('hamburger');
+        const mainNav = document.getElementById('mainNav');
+
+        hamburger.addEventListener('click', () => {
+            mainNav.classList.toggle('open');
+            // Promjena ikone iz tri crte (bars) u X (xmark)
+            const icon = hamburger.querySelector('i');
+            if (mainNav.classList.contains('open')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Zatvaranje menija klikom na link (na mobitelu)
+        mainNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    mainNav.classList.remove('open');
+                    document.getElementById('hamburger').querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+                }
+            });
+        });
+
+
+        // Inicijalno učitavanje teme i postavljanje jezika
+        window.onload = () => {
+            checkTheme();
+            setLanguage(currentLang); 
+        };
+
+    </script>
+</body>
+</html>
